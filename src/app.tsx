@@ -1,8 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Shell } from './shell';
-
-console.log('hej')
+import { Shell } from './components/shell';
 
 ReactDOM.render(
     <Shell />,
