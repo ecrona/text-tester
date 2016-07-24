@@ -1,0 +1,14 @@
+{
+  "name": "text-tester",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ecrona/text-tester.git"
+  },
+  "author": "Eddie Crona",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ecrona/text-tester/issues"
+  },
+  "homepage": "https://github.com/ecrona/text-tester#readme"
+}
