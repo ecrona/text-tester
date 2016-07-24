@@ -10,5 +10,14 @@
   "bugs": {
     "url": "https://github.com/ecrona/text-tester/issues"
   },
-  "homepage": "https://github.com/ecrona/text-tester#readme"
+  "homepage": "https://github.com/ecrona/text-tester#readme",
+  "devDependencies": {
+    "materialize-css": "^0.97.7",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1",
+    "ts-loader": "^0.8.2",
+    "tsd": "^0.6.5",
+    "typescript": "^1.8.10",
+    "webpack": "^1.13.1"
+  }
 }
