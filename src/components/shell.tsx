@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Header } from './header/header';
+import { Main } from './main/main';
 
 interface State {
     assistance: boolean;
@@ -20,9 +21,13 @@ export class Shell extends React.Component<any, State> {
 
     public render() {
         return (
-            <Header
-                assistance={ this.state.assistance }
-                toggleAssistance={ this.toggleAssistance.bind(this) } />
+            <div>
+                <Header
+                    assistance={ this.state.assistance }
+                    toggleAssistance={ this.toggleAssistance.bind(this) } />
+                <Main
+                    assistance={ this.state.assistance } />
+            </div>
         );
     }
 }
