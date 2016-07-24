@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Dropdown } from './dropdown';
 
 interface Props extends React.Props<Header> {
@@ -10,7 +11,15 @@ interface State {
     dropdownActive: boolean;
 }
 
+interface Refs {
+    [key: string]: (Element);
+    menu: HTMLElement;
+    dropdown: HTMLElement;
+}
+
 export class Header extends React.Component<Props, State> {
+    public refs: Refs;
+
     constructor(props: Props) {
         super(props);
 
@@ -19,8 +28,29 @@ export class Header extends React.Component<Props, State> {
         };
     }
 
+    private contains(container, element: HTMLElement): boolean {
+        let containerElement = ReactDOM.findDOMNode(container);
+        
+        return containerElement.contains(element);
+    }
+    
+    private onDocumentClick = (e: Event) => {
+        console.log(this.refs)
+		if (!this.contains(this.refs.menu, e.target as HTMLElement)) {
+			this.toggleDropdown();
+		}
+    }
+
     private toggleDropdown() {
-        this.setState({ dropdownActive: !this.state.dropdownActive });
+        const active = !this.state.dropdownActive;
+
+        if (active) {
+            document.addEventListener('click', this.onDocumentClick);
+        } else {
+            document.removeEventListener('click', this.onDocumentClick);
+        }
+
+        this.setState({ dropdownActive: active });
     }
 
     public render() {
@@ -31,8 +61,10 @@ export class Header extends React.Component<Props, State> {
                         <div className="nav-wrapper">
                             <a href="#" className="brand-logo">Text Tester</a>
                             <ul id="nav-mobile" className="right hide-on-med-and-down">
-                                <li>
-                                    <a><i onClick={ this.toggleDropdown.bind(this) } className="material-icons">menu</i></a>
+                                <li ref="menu">
+                                    <a onClick={ this.toggleDropdown.bind(this) }>
+                                        <i className="material-icons">menu</i>
+                                    </a>
                                     { this.state.dropdownActive ?
                                         <Dropdown
                                             assistance={ this.props.assistance }
