@@ -12,8 +12,6 @@ export class BlockItem extends React.Component<Props, any> {
     constructor(props: Props) {
         super(props);
 
-        console.log(props)
-
         if (props.block.new) {
             setTimeout(() => props.normalizeBlock(props.block));
         }
