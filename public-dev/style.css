@@ -1,0 +1,90 @@
+body {
+    background-color: #e7e7e7;
+}
+
+.container {
+    width: 40%;
+}
+
+.dropdown-content {
+    width: 155px;
+    display: block;
+    opacity: 1;
+}
+
+.dropdown-content > li > a > i {
+    float: left;
+    margin-right: 10px;
+}
+
+main {
+    position: fixed;
+    height: calc(100% - 84px);
+    width: 100%;
+    margin-top: 20px;
+}
+
+main > .container {
+    height: 100%;
+}
+
+.container > .row,
+.container > .row > .col {
+    height: inherit;
+}
+
+.card {
+    margin: 0;
+    height: calc(100% - 20px);
+    max-height: 600px;
+    background-color: rgba(252, 252, 252, 0.9);
+    overflow-y: scroll;
+}
+
+.card-panel,
+textarea {
+    font-family: monospace;
+}
+
+.card-panel > .row {
+    margin-bottom: 0;
+}
+
+p {
+    width: 539px;
+}
+
+.active-red {
+    color: red !important;
+}
+
+.block {
+    transform: translateX(0);
+    opacity: 1;
+    transition: all 0.3s ease 0.06s;
+}
+
+.block-animation {
+    transform: translateX(-400px);
+    opacity: 0;
+}
+
+.input-field {
+    width: 100%;
+}
+
+textarea {
+    width: 306px !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    border-right: 1px dotted #fff !important;
+}
+
+textarea:focus {
+    border-right: 1px dotted #26a69a !important;            
+}
+
+label {
+    left: initial !important;
+    margin-left: -305px;
+}

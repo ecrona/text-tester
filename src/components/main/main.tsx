@@ -21,11 +21,35 @@ export class Main extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            blocks: [],
+            blocks: [{
+                firstRow: ' asd ',
+                secondRow: ' asd ',
+                new: true
+            },{
+                firstRow: ' asd ',
+                secondRow: ' asd ',
+                new: true
+            },{
+                firstRow: ' asd ',
+                secondRow: ' asd ',
+                new: true
+            },{
+                firstRow: ' asd ',
+                secondRow: ' asd ',
+                new: true
+            },{
+                firstRow: ' asd ',
+                secondRow: ' asd ',
+                new: true
+            },{
+                firstRow: ' asd ',
+                secondRow: ' asd ',
+                new: true
+            }],
             inputBlock: {
                 firstRow: '',
                 secondRow: '',
-                new: false
+                new: true
             },
             activeRow: 1,
             charactersLeft: 37

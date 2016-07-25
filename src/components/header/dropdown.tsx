@@ -13,7 +13,7 @@ export class Dropdown extends React.Component<Props, any> {
 
     public render() {
         return (
-            <ul style={{ display: 'block', opacity: 1 }} className='dropdown-content'>
+            <ul className="dropdown-content">
                 <li><a onClick={ this.props.toggleAssistance }>
                     <i className="material-icons">
                         { this.props.assistance ? 'done' : 'clear' }
