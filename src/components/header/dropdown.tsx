@@ -8,7 +8,6 @@ interface Props extends React.Props<Dropdown> {
 export class Dropdown extends React.Component<Props, any> {
     constructor(props: Props) {
         super(props);
-        console.log(props)
     }
 
     public render() {

@@ -147,6 +147,7 @@ export class Main extends React.Component<Props, State> {
                                             normalizeBlock={ this.normalizeBlock.bind(this) } />
                                     )) }
                                     <Input
+                                        assistance={ this.props.assistance }
                                         active={ this.state.inputActive }
                                         block={ this.state.inputBlock }
                                         activeRow={ this.state.activeRow }

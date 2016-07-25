@@ -4,6 +4,7 @@ import * as ReactDOM from 'react-dom';
 import { Block } from './block.d';
 
 interface Props extends React.Props<Input> {
+    assistance: boolean;
     active: boolean;
     block: Block;
     activeRow: number;
@@ -67,6 +68,18 @@ export class Input extends React.Component<Props, any> {
         return this.props.block.firstRow + '\n' + this.props.block.secondRow;
     }
 
+    private labelActive(): boolean {
+        return this.props.active || !!this.props.block.firstRow.length;
+    }
+
+    private labelWarn(): boolean {
+        return this.props.assistance && this.props.charactersLeft <= 9;
+    }
+
+    private showCharactersLeft(): boolean {
+        return this.props.assistance && (this.props.active || !!this.props.block.firstRow.length);
+    }
+
     public changeText(e) {
         this.props.changeText(e.target.value);
     }
@@ -89,11 +102,12 @@ export class Input extends React.Component<Props, any> {
                                 className="materialize-textarea" />
                             <label
                                 htmlFor="textarea1"
-                                className={ (this.props.active || this.props.block.firstRow.length ? 'active' + (this.props.charactersLeft <= 3 ? ' active-red' : '') : '') }>
-                                { !this.props.active && !this.props.block.firstRow.length ?
-                                    <span>Start writing ...</span>
-                                    :
+                                className={ (this.labelActive() ? 'active' + (this.labelWarn() ? ' active-red' : '') : '') }>
+                                { this.showCharactersLeft() ?
                                     <span>{ this.props.charactersLeft } characters left</span>
+                                : !this.labelActive() ? 
+                                    <span>Start writing ...</span>
+                                : ''
                                 }
                             </label>
                         </div>

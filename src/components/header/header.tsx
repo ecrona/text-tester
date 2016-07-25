@@ -35,7 +35,6 @@ export class Header extends React.Component<Props, State> {
     }
     
     private onDocumentClick = (e: Event) => {
-        console.log(this.refs)
 		if (!this.contains(this.refs.menu, e.target as HTMLElement)) {
 			this.toggleDropdown();
 		}
