@@ -22,31 +22,8 @@ export class Main extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            blocks: [{
-                firstRow: ' asd ',
-                secondRow: ' asd ',
-                new: true
-            },{
-                firstRow: ' asd ',
-                secondRow: ' asd ',
-                new: true
-            },{
-                firstRow: ' asd ',
-                secondRow: ' asd ',
-                new: true
-            },{
-                firstRow: ' asd ',
-                secondRow: ' asd ',
-                new: true
-            },{
-                firstRow: ' asd ',
-                secondRow: ' asd ',
-                new: true
-            },{
-                firstRow: ' asd ',
-                secondRow: ' asd ',
-                new: true
-            }],
+            blocks: [],
+            inputActive: false,
             inputBlock: {
                 firstRow: '',
                 secondRow: '',
@@ -57,13 +34,13 @@ export class Main extends React.Component<Props, State> {
         };
     }
 
-    private getBlockRest(inputBlock: Block, row: number): string {
+    private getBlockRest(inputBlock: Block, row: number): Array<string> {
         const rowName = row === 1 ? 'firstRow' : 'secondRow';
         const split = inputBlock[rowName].split(' ');
         const rest = split.splice(split.length - 1);
 
         inputBlock[rowName] = split.join(' ');
-        return rest[0];
+        return rest;
     }
 
     private getCharactersLeft(activeRow: number, inputBlock: Block): number {
@@ -73,7 +50,7 @@ export class Main extends React.Component<Props, State> {
     }
 
     public setInputActive(active: boolean) {
-        this.setState({ inputActive: active });
+        this.setState({ inputActive: active } as State);
     }
 
     public changeInputText(text: string) {
@@ -108,20 +85,20 @@ export class Main extends React.Component<Props, State> {
 
         // Adjust rows values
         if (inputBlock.firstRow.length > 37) {
-            // Remove overflowing words from the first row ...
+            // Remove overflowing words from the first row
             const rest = this.getBlockRest(inputBlock, 1);
-            // ... and unshift them into the second row
-            inputBlock.secondRow = inputBlock
+            // Split the current words from the second row up into an array
+            let split = inputBlock
                 .secondRow
                 .split(' ');
 
-            if (rest) {
-                inputBlock.secondRow.unshift(rest[0]);
+            if (rest.length) {
+                // Unshift all the rest words that weren't empty
+                split.unshift(...rest.filter((word) => word !== ''));
             }
 
-            inputBlock.secondRow = inputBlock
-                .secondRow
-                .join(' ');
+            // Join the newly merged second row up
+            inputBlock.secondRow = split.join(' ');
 
             activeRow = 2;
         }
@@ -147,12 +124,12 @@ export class Main extends React.Component<Props, State> {
             inputBlock,
             activeRow,
             charactersLeft: this.getCharactersLeft(activeRow, inputBlock)
-        });
+        } as State);
     }
 
     public normalizeBlock(block: Block) {
         block.new = false;
-        this.setState({ blocks: this.state.blocks });
+        this.setState({ blocks: this.state.blocks } as State);
     }
 
     public render() {
