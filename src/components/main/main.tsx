@@ -17,7 +17,14 @@ interface State {
     charactersLeft: number;
 }
 
+interface Refs {
+    [key: string]: (Element);
+    card: HTMLElement;
+}
+
 export class Main extends React.Component<Props, State> {
+    public refs: Refs;
+
     constructor(props: Props) {
         super(props);
 
@@ -119,12 +126,13 @@ export class Main extends React.Component<Props, State> {
             activeRow = 1;
         }
 
+        // Set our calculated state and set appropriate scroll position
         this.setState({
             blocks,
             inputBlock,
             activeRow,
             charactersLeft: this.getCharactersLeft(activeRow, inputBlock)
-        } as State);
+        } as State, () => this.refs.card.scrollTop = this.refs.card.scrollHeight);
     }
 
     public normalizeBlock(block: Block) {
@@ -138,7 +146,7 @@ export class Main extends React.Component<Props, State> {
                 <div className="container">
                     <div className="row">
                         <div  className="col s12">
-                            <div className="card">
+                            <div ref="card" className="card">
                                 <div className="card-content">
                                     { this.state.blocks.map((block, index) => (
                                         <BlockItem
