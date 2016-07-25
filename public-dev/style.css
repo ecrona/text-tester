@@ -3,7 +3,8 @@ body {
 }
 
 .container {
-    width: 40%;
+    width: 70%;
+    max-width: 780px;
 }
 
 .dropdown-content {
@@ -39,11 +40,13 @@ main > .container {
     max-height: 600px;
     background-color: rgba(252, 252, 252, 0.9);
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .card-panel,
 textarea {
     font-family: monospace;
+    font-size: 14px !important;
 }
 
 .card-panel > .row {
@@ -51,7 +54,8 @@ textarea {
 }
 
 p {
-    width: 539px;
+    width: 100%;
+    margin-left: 10.5px !important;
 }
 
 .active-red {
@@ -82,9 +86,4 @@ textarea {
 
 textarea:focus {
     border-right: 1px dotted #26a69a !important;            
-}
-
-label {
-    left: initial !important;
-    margin-left: -305px;
 }

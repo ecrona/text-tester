@@ -26,10 +26,12 @@ export class BlockItem extends React.Component<Props, any> {
                     <div className="hide-on-small-only col m1">
                         <i className="material-icons">done</i>
                     </div>
-                    <div className="center-align col s12 m12">
+                    <div className="col m2"></div>
+                    <div className="col s12 m6">
                         <p>{ this.props.block.firstRow }</p>
                         <p>{ this.props.block.secondRow }</p>
                     </div>
+                    <div className="col m3"></div>
                 </div>
             </div>
         );
