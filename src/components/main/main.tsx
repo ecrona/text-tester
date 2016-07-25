@@ -11,6 +11,7 @@ interface Props extends React.Props<Main> {
 
 interface State {
     blocks: Array<Block>;
+    inputActive: boolean;
     inputBlock: Block;
     activeRow: number;
     charactersLeft: number;
@@ -62,14 +63,17 @@ export class Main extends React.Component<Props, State> {
         const rest = split.splice(split.length - 1);
 
         inputBlock[rowName] = split.join(' ');
-        console.log(rowName, split, rest, inputBlock[rowName])
-        return rest;
+        return rest[0];
     }
 
     private getCharactersLeft(activeRow: number, inputBlock: Block): number {
         return activeRow === 1 ?
             37 - inputBlock.firstRow.length
             : 37 - inputBlock.secondRow.length;
+    }
+
+    public setInputActive(active: boolean) {
+        this.setState({ inputActive: active });
     }
 
     public changeInputText(text: string) {
@@ -85,6 +89,23 @@ export class Main extends React.Component<Props, State> {
         // Set the active row
         let activeRow = this.state.activeRow;
 
+        // Enter (new line) was pressed
+        if (rows.length > 2) {
+            if (activeRow === 2) {
+                // If the active row was the second row, consider it a block change
+                blocks.push(inputBlock);
+                // Create a new input with the rest
+                inputBlock = {
+                    firstRow: '',
+                    secondRow: '',
+                    new: true
+                };
+            }
+            
+            // Switch active row
+            activeRow = activeRow === 1 ? 2 : 1;
+        }
+
         // Adjust rows values
         if (inputBlock.firstRow.length > 37) {
             // Remove overflowing words from the first row ...
@@ -94,7 +115,9 @@ export class Main extends React.Component<Props, State> {
                 .secondRow
                 .split(' ');
 
-            inputBlock.secondRow.unshift(rest);
+            if (rest) {
+                inputBlock.secondRow.unshift(rest[0]);
+            }
 
             inputBlock.secondRow = inputBlock
                 .secondRow
@@ -111,15 +134,13 @@ export class Main extends React.Component<Props, State> {
             blocks.push(inputBlock);
             // Create a new input with the rest
             inputBlock = {
-                firstRow: rest,
+                firstRow: rest[0],
                 secondRow: '',
                 new: true
             };
             // Reset the active row
             activeRow = 1;
         }
-
-        console.log(inputBlock)
 
         this.setState({
             blocks,
@@ -149,9 +170,11 @@ export class Main extends React.Component<Props, State> {
                                             normalizeBlock={ this.normalizeBlock.bind(this) } />
                                     )) }
                                     <Input
+                                        active={ this.state.inputActive }
                                         block={ this.state.inputBlock }
                                         activeRow={ this.state.activeRow }
                                         charactersLeft={ this.state.charactersLeft }
+                                        setActive={ this.setInputActive.bind(this) }
                                         changeText={ this.changeInputText.bind(this) } />
                                 </div>
                             </div>

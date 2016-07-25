@@ -4,15 +4,17 @@ import * as ReactDOM from 'react-dom';
 import { Block } from './block.d';
 
 interface Props extends React.Props<Input> {
+    active: boolean;
     block: Block;
     activeRow: number;
     charactersLeft: number;
+    setActive: (active: boolean) => void;
     changeText: (text: string) => void;
 }
 
 interface Refs {
     [key: string]: (Element);
-    textarea: HTMLElement;
+    textarea: any;
 }
 
 export class Input extends React.Component<Props, any> {
@@ -20,8 +22,8 @@ export class Input extends React.Component<Props, any> {
 
     constructor(props: Props) {
         super(props);
-        console.log(this.props.activeRow)
 
+        document.addEventListener('click', this.onDocumentClick);
         setTimeout(this.setSelectedRow.bind(this));
     }
 
@@ -33,6 +35,18 @@ export class Input extends React.Component<Props, any> {
         }
     }
 
+    private contains(container, element: HTMLElement): boolean {
+        let containerElement = ReactDOM.findDOMNode(container);
+        
+        return containerElement.contains(element);
+    }
+    
+    private onDocumentClick = (e: Event) => {
+		if (!this.contains(this.refs.textarea, e.target as HTMLElement)) {
+			this.props.setActive(false);
+		}
+    }
+
     private getSelectedRow(): number {
         const position = this.refs.textarea.selectionStart;
         return position <= this.props.block.firstRow.length ? 1 : 2;
@@ -40,8 +54,6 @@ export class Input extends React.Component<Props, any> {
 
     private setSelectedRow() {
         const textarea = this.refs.textarea;
-
-        console.log(this.props.activeRow)
 
         if (this.props.activeRow === 1) {
             textarea.selectionStart = this.props.block.firstRow.length;
@@ -69,16 +81,20 @@ export class Input extends React.Component<Props, any> {
                     <div className="center-align col s12 m12">
                         <div  className="input-field col">
                             <textarea
-                                autoFocus={ true }
                                 ref="textarea"
+                                onClick={ () => this.props.setActive(true) }
                                 onChange={ this.changeText.bind(this) }
                                 value={ this.getText() }
                                 id="textarea1"
                                 className="materialize-textarea" />
                             <label
                                 htmlFor="textarea1"
-                                className={ 'active' + (this.props.charactersLeft <= 3 ? ' active-red' : '') }>
-                                { this.props.charactersLeft } characters left
+                                className={ (this.props.active || this.props.block.firstRow.length ? 'active' + (this.props.charactersLeft <= 3 ? ' active-red' : '') : '') }>
+                                { !this.props.active && !this.props.block.firstRow.length ?
+                                    <span>Start writing ...</span>
+                                    :
+                                    <span>{ this.props.charactersLeft } characters left</span>
+                                }
                             </label>
                         </div>
                     </div>
