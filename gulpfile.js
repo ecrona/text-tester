@@ -25,4 +25,4 @@ gulp.task('fonts', function() {
         .pipe(gulp.dest('public-prod/fonts'));
 });
 
-gulp.task('default', ['fonts']);
+gulp.task('default', ['webpack', 'css', 'fonts']);
