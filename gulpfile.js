@@ -1,5 +1,6 @@
 var gulp = require('gulp');
-var uglify = require('gulp-uglify');
+var concat = require('gulp-concat');
+var minify = require('gulp-minify-css');
 var webpack = require('gulp-webpack');
 
 
@@ -9,10 +10,19 @@ gulp.task('webpack', function() {
         .pipe(gulp.dest('public-prod/js'));
 });
 
-gulp.task('js', function() {
-    return gulp.src('public-dev/js/bundle.js')
-        .pipe(uglify())
-        .pipe(gulp.dest('public-prod'));
+gulp.task('css', function() {
+    return gulp.src([
+            'node_modules/materialize-css/dist/css/materialize.css',
+            'public-dev/css/**/*.css'
+        ])
+        .pipe(minify())
+        .pipe(concat('bundle.css'))
+        .pipe(gulp.dest('public-prod/css'));
 });
 
-gulp.task('default', ['webpack']);
+gulp.task('fonts', function() {
+    return gulp.src('node_modules/materialize-css/dist/fonts/**/*')
+        .pipe(gulp.dest('public-prod/fonts'));
+});
+
+gulp.task('default', ['fonts']);
