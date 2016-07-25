@@ -1,0 +1,1 @@
+Alias /vendor /var/www/text-tester/node_modules
