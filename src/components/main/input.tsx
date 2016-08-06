@@ -50,7 +50,6 @@ export class Input extends React.Component<Props, any> {
 
     private getSelectedRow(): number {
         const position = this.refs.textarea.selectionStart;
-
         return position <= this.props.block.firstRow.length ? 1 : 2;
     }
 
@@ -66,7 +65,7 @@ export class Input extends React.Component<Props, any> {
     }
 
     private getText() {
-        if (this.props.block.secondRow === '') {
+        if (this.props.activeRow === 1) {
             return this.props.block.firstRow;
         }
         return this.props.block.firstRow + '\n' + this.props.block.secondRow;

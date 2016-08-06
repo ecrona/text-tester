@@ -73,7 +73,7 @@ export class Main extends React.Component<Props, State> {
         // Set the active row
         let activeRow = this.state.activeRow;
 
-        // Enter (new line) was pressed
+        // Enter (new line) was pressed from the second line
         if (rows.length > 2) {
             if (activeRow === 2) {
                 // If the active row was the second row, consider it a block change
@@ -91,6 +91,9 @@ export class Main extends React.Component<Props, State> {
         // Backspace was pressed from the second line
         } else if (rows.length === 1 && activeRow === 2) {
             activeRow = 1;
+        // Enter was pressed from the first line
+        } else if (rows.length === 2 && activeRow === 1) {
+            activeRow = 2;
         }
 
         // Adjust rows values
