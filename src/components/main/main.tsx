@@ -88,6 +88,9 @@ export class Main extends React.Component<Props, State> {
             
             // Switch active row
             activeRow = activeRow === 1 ? 2 : 1;
+        // Backspace was pressed from the second line
+        } else if (rows.length === 1 && activeRow === 2) {
+            activeRow = 1;
         }
 
         // Adjust rows values

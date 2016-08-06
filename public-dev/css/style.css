@@ -93,6 +93,7 @@ textarea {
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
     border-right: 1px dotted #fff !important;
+    min-height: 60px !important;
 }
 
 textarea:focus {
