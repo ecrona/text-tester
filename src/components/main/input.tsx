@@ -94,8 +94,8 @@ export class Input extends React.Component<Props, any> {
                     <div className="hide-on-small-only col m1">
                         <i className="material-icons">input</i>
                     </div>
-                    <div className="col m2"></div>
-                    <div className="center-align col s12 m6">
+                    <div className="col m1"></div>
+                    <div className="center-align col s12 m7">
                         <div  className="input-field col">
                             <textarea
                                 ref="textarea"
