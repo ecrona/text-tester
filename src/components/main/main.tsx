@@ -100,12 +100,13 @@ export class Main extends React.Component<Props, State> {
                 .split(' ');
 
             if (rest.length) {
-                // Unshift all the rest words that weren't empty
-                split.unshift(...rest.filter((word) => word !== ''));
+                // Unshift all the rest words
+                split.unshift(...rest);
             }
 
-            // Join the newly merged second row up
-            inputBlock.secondRow = split.join(' ');
+            // Join the newly merged second row up whilst filtering
+            // out empty words to nullify post-space possibilities
+            inputBlock.secondRow = split.filter((word) => word !== '').join(' ');
 
             activeRow = 2;
         }
